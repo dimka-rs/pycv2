@@ -36,16 +36,16 @@ while(True):
         fps = 0
     old_time = now_time
 
-    ret, frame = cap.read()
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    ret, f = cap.read()
+    ymax, xmax, _ = f.shape
+    gray = cv2.cvtColor(f, cv2.COLOR_BGR2GRAY)
 
-    cv2.line(gray,(0,0),(xmax,ymax),(255,255,255),5)
-    cv2.rectangle(gray,(0,0),(xmax,ymax),(0,0,255),5)
-    cv2.circle(gray,(x, y), r, (0,255,0), +5)
-    cv2.putText(gray,'fps: {:6.1f}'.format(fps),(0,300), font, 1, (200,255,155), 2, cv2.CV_AA)
+    cv2.line(f,(0,ymax/2),(xmax,ymax/2),(255,255,255),5)
+    cv2.rectangle(f,(0,0),(xmax,ymax),(0,0,255),5)
+    cv2.circle(f,(x, y), r, (0,255,0), +5)
+    cv2.putText(f,'fps: {:5.1f}'.format(fps),(0,ymax-10), font, 1, (200,255,155), 2, cv2.CV_AA)
 
-    #cv2.imshow('frame', frame)
-    cv2.imshow('frame', gray)
+    cv2.imshow('frame', f)
     if cv2.waitKey(1) & 0xFF == ord('q'):
 	break
 
